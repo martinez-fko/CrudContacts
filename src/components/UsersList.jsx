@@ -1,11 +1,13 @@
 import axios from "axios";
 
-const UsersList = ({ users, getUsers }) => {
+const UsersList = ({ users, getUsers , editUser }) => {
   const deleteUser = (id) => {
     axios
       .delete(`https://users-crud1.herokuapp.com/users/${id}/`)
       .then(() => getUsers());
   };
+
+
 
   return (
     <ul className="container-card">
@@ -29,7 +31,7 @@ const UsersList = ({ users, getUsers }) => {
           <button className="delete" onClick={() => deleteUser(user.id)}>
             <i className="bx bxs-trash"></i> Delete
           </button>
-          <button className="edit"><i className='bx bx-edit-alt'></i> Edit</button>
+          <button className="edit" onClick={ () => editUser(user) }><i className='bx bx-edit-alt'></i> Edit</button>
         </li>
       ))}
     </ul>

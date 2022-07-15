@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import UsersList from "./components/UsersList";
-import UsersForm from "./components/UsersForm";
 import axios from "axios";
 import ModalForm from "./components/ModalForm";
 import DarkMode from "./components/DarkMode";
@@ -9,6 +8,7 @@ import DarkMode from "./components/DarkMode";
 function App() {
   const [users, setUsers] = useState([]);
   const [modalVisible, setmodalVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const getUsers = () => {
     axios
@@ -26,9 +26,19 @@ function App() {
     body.classList.remove("scroll");
     let btnDark = document.querySelector(".circle-dark")
     btnDark.style.display = "block"
+    deselectUser()
   };
 
-  console.log(users);
+  const editUser = user => {
+    setmodalVisible(true)
+    setSelectedUser(user)
+  }
+
+  const deselectUser = () => {
+    setSelectedUser(null)
+  }
+
+  console.log(selectedUser);
 
   return (
     <div className="App">
@@ -38,9 +48,9 @@ function App() {
           <button className="open-modal" onClick={() => setmodalVisible(true)}> <i className='bx bx-user-plus bx-sm'></i>Create user</button>
         </div>
         {modalVisible && (
-          <ModalForm closeModal={closeModal} getUsers={getUsers} />
+          <ModalForm closeModal={closeModal} getUsers={getUsers} editUser={editUser} selectedUser={selectedUser} deselectUser={deselectUser}/>
         )}
-        <UsersList users={users} getUsers={getUsers} />
+        <UsersList users={users} getUsers={getUsers} editUser={editUser}/>
         <DarkMode />
       </div>
     </div>

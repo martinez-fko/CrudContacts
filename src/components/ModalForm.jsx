@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import UsersForm from './UsersForm';
 
-const ModalForm = ({closeModal , getUsers}) => {
+const ModalForm = ({closeModal , getUsers , selectedUser , deselectUser}) => {
 
 
     let body = document.querySelector("body")
@@ -15,8 +15,8 @@ const ModalForm = ({closeModal , getUsers}) => {
         <div className='modal'>
             <div className="modal-box">
                 <button className='closed' onClick={closeModal}> <i className='bx bx-x bx-sm'></i></button>
-                <h2 className='title-model'>Create User</h2>
-                <UsersForm getUsers={getUsers}/>
+                <h2 className='title-model'>{ selectedUser !==null ? "Update User" : "Create User"} </h2>
+                <UsersForm getUsers={getUsers} selectedUser={selectedUser} closeModal={closeModal} deselectUser={deselectUser}/>
             </div>
             <div className="overlay" onClick={closeModal}></div>
         </div>
