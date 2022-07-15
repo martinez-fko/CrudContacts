@@ -18,6 +18,7 @@ const ModalForm = ({closeModal , getUsers}) => {
                 <h2 className='title-model'>Create User</h2>
                 <UsersForm getUsers={getUsers}/>
             </div>
+            <div className="overlay" onClick={closeModal}></div>
         </div>
     );
 };
